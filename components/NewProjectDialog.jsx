@@ -47,7 +47,7 @@ const NewProjectDialog = () => {
     const handleAddProject = (e) =>{
         e.preventDefault()
         addNewProject(projectName, projectDescription, finishDate, importance, tasks)
-        modal.remove(); 
+        setIsModalOpen(false)
     }
 
     if (!isModalOpen) {
