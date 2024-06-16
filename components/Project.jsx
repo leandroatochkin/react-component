@@ -3,6 +3,8 @@ import { saveProjects } from '../utils/utils.js';
 
 const Project = ({ projects }) => {
     const [projectsArr, setProjectsArr] = useState([]);
+    const [editTaskId, setEditTaskId] = useState(null);
+    const [editTaskValue, setEditTaskValue] = useState('');
 
     useEffect(() => {
         if (projects && projects.length > 0) {
@@ -10,10 +12,8 @@ const Project = ({ projects }) => {
         }
     }, [projects]);
 
-    console.log(projectsArr);
-
     const handleCompleteProject = (project) => {
-        const updatedProjectsArr = projectsArr.filter((p) => p !== project);
+        const updatedProjectsArr = projectsArr.filter((_proj) => _proj !== project);
         setProjectsArr(updatedProjectsArr);
         saveProjects(updatedProjectsArr);
     };
@@ -36,6 +36,31 @@ const Project = ({ projects }) => {
         saveProjects(updatedProjectsArr);
     };
 
+    const handleEditButton = (task) => {
+        setEditTaskId(task.id);
+        setEditTaskValue(task.task);
+    };
+
+    const handleSaveButton = (project, task) => {
+        const updatedProjectsArr = projectsArr.map((_proj) => {
+            if (_proj === project) {
+                const updatedTasks = _proj.tasks.map((_task) => {
+                    if (_task === task) {
+                        return { ..._task, task: editTaskValue };
+                    }
+                    return _task;
+                });
+                return { ..._proj, tasks: updatedTasks };
+            }
+            return _proj;
+        });
+
+        setProjectsArr(updatedProjectsArr);
+        saveProjects(updatedProjectsArr);
+        setEditTaskId(null);
+        setEditTaskValue('');
+    };
+
     return (
         <>
             {projectsArr.map((project, index) => (
@@ -48,13 +73,38 @@ const Project = ({ projects }) => {
                     <p className={`${project.importance}-importance`}>{project.importance}</p>
                     <div className='tasks-container'>
                         {project.tasks.map((task, taskIndex) => (
-                            !task.completed && <div key={taskIndex} className='task-bubble'>
-                            {task.task} {!task.completed && (
-                                <button className='done-button' onClick={() => handleDoneButton(project, task)}>
-                                    Done
-                                </button>
-                            )}
-                        </div>
+                            <div key={taskIndex} className='task-bubble'>
+                                {editTaskId === task.id ? (
+                                    <>
+                                        <input
+                                            type='text'
+                                            className='edit-input'
+                                            value={editTaskValue}
+                                            onChange={(e) => setEditTaskValue(e.target.value)}
+                                        />
+                                        <button
+                                            className='save-button'
+                                            onClick={() => handleSaveButton(project, task)}
+                                        >
+                                            Save
+                                        </button>
+                                    </>
+                                ) : (
+                                    <>
+                                        {task.task}
+                                        {!task.completed && (
+                                            <>
+                                                <button className='done-button' onClick={() => handleDoneButton(project, task)}>
+                                                    Done
+                                                </button>
+                                                <button className='edit-button' onClick={() => handleEditButton(task)}>
+                                                    Edit
+                                                </button>
+                                            </>
+                                        )}
+                                    </>
+                                )}
+                            </div>
                         ))}
                     </div>
                 </div>
