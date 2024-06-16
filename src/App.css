@@ -6,6 +6,20 @@
   --black-transparent: rgba(0,0,0,0.5)
 }
 
+/*------------------DISPLAY-----------------------------*/
+
+.display{
+  display: flex;
+  flex-direction: row;
+  width: 100vw;
+}
+
+/*------------------SIDEBAR-----------------------------*/
+
+.sidebar{
+  background-color: green;
+}
+
 /*------------------NEW PROJECT-------------------------*/
 
 .modal{
@@ -126,4 +140,37 @@ li{
   border: none;
   box-shadow: 2px 2px 2px var(--black-transparent);
 
+}
+
+/*---------------------PROJECT BUBBLE--------------------*/
+
+.main-section{
+  width: 80%;
+}
+
+.project-bubble{
+  background-color: red;
+}
+
+.project-title-container{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.project-bubble-date{
+  display: flex;
+  justify-content: flex-start;
+}
+
+.tasks-container{
+  display: flex;
+  flex-direction: column;
+}
+
+.task-bubble{
+  background-color: green;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }

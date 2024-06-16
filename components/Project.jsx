@@ -93,13 +93,15 @@ const Project = ({ projects }) => {
                                     <>
                                         {task.task}
                                         {!task.completed && (
-                                            <>
+                                            <>  
+                                                <div className='tasks-buttons'>
                                                 <button className='done-button' onClick={() => handleDoneButton(project, task)}>
                                                     Done
                                                 </button>
                                                 <button className='edit-button' onClick={() => handleEditButton(task)}>
                                                     Edit
                                                 </button>
+                                                </div>
                                             </>
                                         )}
                                     </>
