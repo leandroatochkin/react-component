@@ -16,7 +16,9 @@ function App() {
   }
 
   return (
-    <>
+  <div className='main-display'>
+    {openNewProject && <NewProjectDialog />}
+    <div className='header'></div>
       <div className='display'>
       <div className='main-section'>
       <Project projects={projects} />
@@ -26,9 +28,8 @@ function App() {
         add project
         </button>
       </div>
-      {openNewProject && <NewProjectDialog />}
       </div> 
-    </>
+  </div>
   )
 }
 

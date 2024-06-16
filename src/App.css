@@ -1,9 +1,22 @@
 #root {
-  max-width: 1280px;
+  max-width: 100%;
+  height: 100%;
   margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-  --black-transparent: rgba(0,0,0,0.5)
+  --black-transparent: rgba(0,0,0,0.5);
+  display: flex;
+  flex-direction: column;
+}
+
+.main-display{
+  height: 100vh;
+  width: 100vw;
+}
+
+.header{
+  height: 20%;
+  width: 100%;
+  background-color: blue;
+
 }
 
 /*------------------DISPLAY-----------------------------*/
@@ -11,13 +24,18 @@
 .display{
   display: flex;
   flex-direction: row;
-  width: 100vw;
+  width: 100%;
+  position: fixed;
 }
+
+
 
 /*------------------SIDEBAR-----------------------------*/
 
 .sidebar{
   background-color: green;
+  width: 20%;
+  height: 100vh;
 }
 
 /*------------------NEW PROJECT-------------------------*/
@@ -25,9 +43,13 @@
 .modal{
   background-color: var(--black-transparent);
   position: absolute;
+  top: 0;
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 100vh;
+  width: 100vw;
+  z-index: 999;
 }
 
 .dialogue-container{
@@ -102,6 +124,9 @@ select{
   gap: 5px;
   grid-column: span 2;
   list-style: none;
+  max-height: 80%;
+  overflow-y: scroll;
+  scrollbar-width: none;
 }
 
 .task-item-container{
@@ -146,10 +171,14 @@ li{
 
 .main-section{
   width: 80%;
+  overflow-y: scroll;
 }
 
 .project-bubble{
-  background-color: red;
+  background-color:chartreuse;
+  border-radius: 16px;
+  margin: 1%;
+  padding: 1%;
 }
 
 .project-title-container{
@@ -173,4 +202,6 @@ li{
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border-radius: 8px;
+  padding: 0.5%;
 }

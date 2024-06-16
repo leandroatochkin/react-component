@@ -58,9 +58,9 @@ const NewProjectDialog = () => {
     <div className='modal'>
         <form className='dialogue-container'>
             <div className='close-form-button-container'>
+                <h3 className='dialogue-title'>Create new project</h3>
                 <button className='close-form-button' onClick={handleClose}>X</button>
-            </div>
-            <h3 className='dialogue-title'>Create new project</h3>
+            </div> 
             <label htmlFor='name'>Name: </label>
             <input name='name' type='text' required={true} placeholder='Project name' className='dialogue-title-input' onChange={handleTitle}></input>
             <label htmlFor='description'>Description: </label>
