@@ -1,5 +1,6 @@
 class Project {
-  constructor(name, description, finishDate, importance, tasks) {
+  constructor(id, name, description, finishDate, importance, tasks) {
+    this.id = id;
     this.name = name;
     this.description = description;
     this.finishDate = finishDate;
@@ -28,9 +29,9 @@ export const saveProjects = (projects) => {
 };
 
 // Add a new project
-export const addNewProject = (name, description, finishDate, importance, tasks) => {
+export const addNewProject = (id, name, description, finishDate, importance, tasks) => {
   const projects = loadProjects(); 
-  projects.push(new Project(name, description, finishDate, importance, tasks)); 
+  projects.push(new Project(id, name, description, finishDate, importance, tasks)); 
   saveProjects(projects); 
   console.log('Project added:', projects); 
 };

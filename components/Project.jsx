@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { saveProjects } from '../utils/utils.js';
+import TaskIcon from '@mui/icons-material/Task';
+import SaveIcon from '@mui/icons-material/Save';
+import DoneIcon from '@mui/icons-material/Done';
+import EditIcon from '@mui/icons-material/Edit';
 
 const Project = ({ projects }) => {
     const [projectsArr, setProjectsArr] = useState([]);
@@ -21,7 +25,7 @@ const Project = ({ projects }) => {
     const handleDoneButton = (project, task) => {
         const updatedProjectsArr = projectsArr.map((_proj) => {
             if (_proj === project) {
-                const updatedTasks = _proj.tasks.map((_task) => {
+                const updatedTasks = (_proj.tasks || []).map((_task) => {
                     if (_task === task) {
                         return { ..._task, completed: true };
                     }
@@ -44,7 +48,7 @@ const Project = ({ projects }) => {
     const handleSaveButton = (project, task) => {
         const updatedProjectsArr = projectsArr.map((_proj) => {
             if (_proj === project) {
-                const updatedTasks = _proj.tasks.map((_task) => {
+                const updatedTasks = (_proj.tasks || []).map((_task) => {
                     if (_task === task) {
                         return { ..._task, task: editTaskValue };
                     }
@@ -66,13 +70,13 @@ const Project = ({ projects }) => {
             {projectsArr.map((project, index) => (
                 <div className='project-bubble' key={index}>
                     <div className='project-title-container'>
-                        <h3>{project.name}</h3>
-                        <button className='complete-project-button' onClick={() => handleCompleteProject(project)}>Complete Project</button>
+                        <h3 className='project-title'>{project.name}</h3>
+                        <button className='complete-project-button' onClick={() => handleCompleteProject(project)}>Complete Project {<TaskIcon />}</button>
                     </div>
                     <h3 className='project-bubble-date'>Due: {project.finishDate}</h3>
                     <p className={`${project.importance}-importance`}>{project.importance}</p>
                     <div className='tasks-container'>
-                        {project.tasks.map((task, taskIndex) => (
+                        {(project.tasks || []).map((task, taskIndex) => (
                             <div key={taskIndex} className='task-bubble'>
                                 {editTaskId === task.id ? (
                                     <>
@@ -86,21 +90,21 @@ const Project = ({ projects }) => {
                                             className='save-button'
                                             onClick={() => handleSaveButton(project, task)}
                                         >
-                                            Save
+                                            Save {<SaveIcon />}
                                         </button>
                                     </>
                                 ) : (
                                     <>
                                         {task.task}
                                         {!task.completed && (
-                                            <>  
+                                            <>
                                                 <div className='tasks-buttons'>
-                                                <button className='done-button' onClick={() => handleDoneButton(project, task)}>
-                                                    Done
-                                                </button>
-                                                <button className='edit-button' onClick={() => handleEditButton(task)}>
-                                                    Edit
-                                                </button>
+                                                    <button className='done-button' onClick={() => handleDoneButton(project, task)}>
+                                                        Done {<DoneIcon />}
+                                                    </button>
+                                                    <button className='edit-button' onClick={() => handleEditButton(task)}>
+                                                        Edit {<EditIcon />}
+                                                    </button>
                                                 </div>
                                             </>
                                         )}

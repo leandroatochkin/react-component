@@ -1,13 +1,18 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import { addNewProject } from '../utils/utils.js'
+import CloseIcon from '@mui/icons-material/Close';
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import { v4 as uuidv4 } from 'uuid';
 
 const NewProjectDialog = () => {
-   
+
     const [projectName, setProjectName] = useState('')
     const [projectDescription, setProjectDescription] = useState('')
     const [finishDate, setFinishDate] = useState('')
-    const [importance, setImportance] = useState('')
+    const [importance, setImportance] = useState('high')
     const [tasks, setTasks] = useState([])
     const [isModalOpen, setIsModalOpen] = useState(true);
 
@@ -46,7 +51,7 @@ const NewProjectDialog = () => {
 
     const handleAddProject = (e) =>{
         e.preventDefault()
-        addNewProject(projectName, projectDescription, finishDate, importance, tasks)
+        addNewProject(uuidv4(), projectName, projectDescription, finishDate, importance, tasks)
         setIsModalOpen(false)
     }
 
@@ -59,7 +64,7 @@ const NewProjectDialog = () => {
         <form className='dialogue-container'>
             <div className='close-form-button-container'>
                 <h3 className='dialogue-title'>Create new project</h3>
-                <button className='close-form-button' onClick={handleClose}>X</button>
+                <button className='close-form-button' onClick={handleClose}><CloseIcon />   </button>
             </div> 
             <label htmlFor='name'>Name: </label>
             <input name='name' type='text' required={true} placeholder='Project name' className='dialogue-title-input' onChange={handleTitle}></input>
@@ -76,14 +81,14 @@ const NewProjectDialog = () => {
             <label htmlFor='tasks'>Tasks: </label>
             <div className='tasks-input-container'>
             <input name='tasks' type='text' required={true} placeholder='Enter task' className='dialogue-tasks-input'></input>
-            <button className='dialogue-add-task-button' onClick={handleTasks}>Add task</button>
+            <button className='dialogue-add-task-button' onClick={handleTasks}>Add task {<AddCircleOutlineIcon />}</button>
             </div>
             <ul className='dialogue-tasks-list'>
                 {tasks.map((task, index) => (
-                    <li key={index} id={task.task}>{task.task} <button className='dialogue-remove-task-button' onClick={()=>handleRemoveTasks(task.task)}>x</button></li>
+                    <li key={index} id={task.task}>{task.task} <button className='dialogue-remove-task-button' onClick={()=>handleRemoveTasks(task.task)}><DeleteForeverIcon /></button></li>
                     ))}
             </ul>
-            <button type='submit' className='dialogue-add-project' onClick={handleAddProject}>Add Project</button>
+            <button type='submit' className='dialogue-add-project' onClick={handleAddProject}>Add Project {<AddCircleIcon/>}</button>
         </form>
     </div>
   )
