@@ -76,7 +76,7 @@ const Project = ({ projects }) => {
                     <h3 className='project-bubble-date'>Due: {project.finishDate}</h3>
                     <p className={`${project.importance}-importance`}>{project.importance}</p>
                     <div className='tasks-container'>
-                        {(project.tasks || []).map((task, taskIndex) => (
+                        {(project.tasks || []).map((task, taskIndex) => (//provide an emprty arr in case there's no project o else it wont work
                             <div key={taskIndex} className='task-bubble'>
                                 {editTaskId === task.id ? (
                                     <>

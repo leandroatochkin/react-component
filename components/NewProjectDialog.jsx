@@ -7,7 +7,7 @@ import AddCircleIcon from '@mui/icons-material/AddCircle';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { v4 as uuidv4 } from 'uuid';
 
-const NewProjectDialog = () => {
+const NewProjectDialog = ({addNewProject}) => {
 
     const [projectName, setProjectName] = useState('')
     const [projectDescription, setProjectDescription] = useState('')

@@ -30,9 +30,16 @@ export const saveProjects = (projects) => {
 
 // Add a new project
 export const addNewProject = (id, name, description, finishDate, importance, tasks) => {
-  const projects = loadProjects(); 
-  projects.push(new Project(id, name, description, finishDate, importance, tasks)); 
-  saveProjects(projects); 
-  console.log('Project added:', projects); 
+  const projects = loadProjects();
+  const newProject = {
+    id,
+    name,
+    description,
+    finishDate,
+    importance,
+    tasks
+  };
+  projects.push(newProject);
+  saveProjects(projects);
 };
 

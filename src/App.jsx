@@ -1,6 +1,6 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import NewProjectDialog from '../components/NewProjectDialog'
-import { loadProjects } from '../utils/utils.js'
+import { loadProjects, addNewProject } from '../utils/utils.js'
 import AddIcon from '@mui/icons-material/Add';
 
 import './App.css'
@@ -12,13 +12,26 @@ function App() {
   const [openNewProject, setOpenNewProject] = useState(false)
   console.log(projects)
 
+  useEffect(() => {
+    const loadedProjects = loadProjects();
+    if (loadedProjects) {
+      setProjects(loadedProjects);
+    }
+  }, []);
+
   const handleNewProject = () =>{
     openNewProject === false ? setOpenNewProject(true) : setOpenNewProject(false)
   }
 
-  return (
+  const handleAddNewProject = (id, name, description, finishDate, importance, tasks) => {
+    addNewProject(id, name, description, finishDate, importance, tasks);
+    const updatedProjects = loadProjects();
+    setProjects(updatedProjects);
+  };
+ 
+  return (    
   <div className='main-display'>
-    {openNewProject && <NewProjectDialog />}
+    {openNewProject && <NewProjectDialog addNewProject={handleAddNewProject}/>}
     <div className='header'>PROJECT MANAGER</div>
       <div className='display'>
       <div className='main-section'>
