@@ -4,6 +4,7 @@ import TaskIcon from '@mui/icons-material/Task';
 import SaveIcon from '@mui/icons-material/Save';
 import DoneIcon from '@mui/icons-material/Done';
 import EditIcon from '@mui/icons-material/Edit';
+import {motion} from 'framer-motion'
 
 const Project = ({ projects }) => {
     const [projectsArr, setProjectsArr] = useState([]);
@@ -68,10 +69,18 @@ const Project = ({ projects }) => {
     return (
         <>
             {projectsArr.map((project, index) => (
-                <div className='project-bubble' key={index}>
+                <motion.div className='project-bubble' key={index}
+                whileHover={{scale: 1.02}}
+                transition={{duration: 1}}
+                >
                     <div className='project-title-container'>
                         <h3 className='project-title'>{project.name}</h3>
-                        <button className='complete-project-button' onClick={() => handleCompleteProject(project)}>Complete Project {<TaskIcon />}</button>
+                        <motion.button 
+                        className='complete-project-button' 
+                        onClick={() => handleCompleteProject(project)}
+                        whileHover={{scale: 1.1}}
+                        whileTap={{scale: 0.9}}
+                        >Complete Project {<TaskIcon />}</motion.button>
                     </div>
                     <h3 className='project-bubble-date'>Due: {project.finishDate}</h3>
                     <p className={`${project.importance}-importance`}>{project.importance}</p>
@@ -113,7 +122,7 @@ const Project = ({ projects }) => {
                             </div>
                         ))}
                     </div>
-                </div>
+                </motion.div>
             ))}
         </>
     );

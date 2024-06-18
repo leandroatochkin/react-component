@@ -6,6 +6,9 @@ import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { v4 as uuidv4 } from 'uuid';
+import Backdrop from './Backdrop.jsx';
+import { motion } from 'framer-motion';
+import { duration } from '@mui/material';
 
 const NewProjectDialog = ({addNewProject}) => {
 
@@ -59,9 +62,37 @@ const NewProjectDialog = ({addNewProject}) => {
         return null; // Return null to not render the modal if it's closed
     }
 
+    const dropIn = {
+        hidden: {
+            y: '-100vh',
+            opacity: 0
+        },
+        visible: {
+            y: '0',
+            opacity: 1,
+            trasition: {
+                duration: 0.1,
+                type: 'spring',
+                damping: 25,
+                stifness: 500
+            }
+
+        },
+        exit: {
+            y: '100vh',
+            opacity: 0
+        }
+    }
+
   return (
-    <div className='modal'>
-        <form className='dialogue-container'>
+    <Backdrop>
+        <motion.form 
+        className='dialogue-container'
+        variants={dropIn}
+        initial='hidden'
+        animate='visible'
+        exit='exit'
+        >
             <div className='close-form-button-container'>
                 <h3 className='dialogue-title'>Create new project</h3>
                 <button className='close-form-button' onClick={handleClose}><CloseIcon />   </button>
@@ -89,8 +120,8 @@ const NewProjectDialog = ({addNewProject}) => {
                     ))}
             </ul>
             <button type='submit' className='dialogue-add-project' onClick={handleAddProject}>Add Project {<AddCircleIcon/>}</button>
-        </form>
-    </div>
+        </motion.form>
+        </Backdrop>
   )
 }
 
